@@ -5,7 +5,7 @@ GET http://localhost:3000/shoppinglists
 POST http://localhost:3000/shoppinglists
 Content-Type: application/json
 
-{ "title": "🌱 Weaver Street Market" 
+{ "title": "Pizzeria Toro" 
 }
 
 ### get one shoppinglist by id
@@ -18,22 +18,22 @@ GET http://localhost:3000/shoppinglists/65c6d6f452572e50cbf9f1e6
 GET http://localhost:3000/shoppinglists/whatever
 
 ### TODO: update one shoppinglist
-PATCH http://localhost:3000/shoppinglists/65cad146adabe6383bf1b5b1
+PATCH http://localhost:3000/shoppinglists/65cadde4c4e1a8e3284757cc
 Content-Type: application/json
 
-{ "title": "Sams 🌱🌱🌱🌱🌱"
+{ "title": "🌱🌱Weaver Street Market🌱🌱"
 }
 
 ### add items
-POST http://localhost:3000/shoppinglists/65cad287adabe6383bf1b5c9/items
+POST http://localhost:3000/shoppinglists/65cae19e3de1c290af485202/items
 Content-Type: application/json
 
 { 
-"items": [{ "name": "toothpaste" }] 
+"items": { "name": "pens" }
 }
 
 ### TODO: delete one shoppinglist 
-DELETE http://localhost:3000/shoppinglists/65cae2eb3de1c290af48520a
+DELETE http://localhost:3000/shoppinglists/65caf026a6cf83ba4f1405d4
 
-### TODO: get one bookmark by title 
-GET http://localhost:3000/shoppinglist/Costco
+### Not working byTitle: get one shoppinglist by title 
+GET http://localhost:3000/shoppinglists/Costco

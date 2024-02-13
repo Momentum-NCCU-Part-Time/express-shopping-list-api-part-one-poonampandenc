@@ -42,6 +42,21 @@ app.get('/shoppinglists/:shoppinglistId', (req, res) => {
     .catch((error) => res.status(400).json({ message: 'Bad request' }))
 })
 
+// not working by Title
+app.get('/shoppinglists/:shoppinglistTitle', (req, res) => {
+    // look up the specific shoppinglist that is being requested in the url, using the model
+    Shoppinglist.findByTitle(req.params.shoppinglistTitle)
+      .then((results) => {
+        if (results) {
+          res.status(200).json(results)
+        } else {
+          res.status(404).json({ message: 'not found' })
+        }
+      })
+      .catch((error) => res.status(400).json({ message: 'Bad request' }))
+  })
+  
+
 app.patch('/shoppinglists/:shoppinglistId', (req, res) => {
   // find the shoppinglist -- look it up in the db
   Shoppinglist.findById(req.params.shoppinglistId)
@@ -69,12 +84,12 @@ app.post('/shoppinglists/:shoppinglistId/items', (req, res) => {
         // if shoppinglist is not found, return 404
         if (shoppinglist) {
           // update the record somehow???
-          shoppinglist.title = req.body.title || shoppinglist.title
-          shoppinglist.items = req.body.items || shoppinglist.items
+        //   shoppinglist.title = req.body.title || shoppinglist.title
+          shoppinglist.items.push(req.body.items)
           // save it! (persist the changes to the database)
           shoppinglist.save()
           // send a success response + the json results
-          res.status(200).json(shoppinglist)
+          res.status(201).json(shoppinglist)
         } else {
           res.status(404).json({ message: 'not found' })
         }
