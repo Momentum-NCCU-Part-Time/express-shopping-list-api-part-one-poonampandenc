@@ -62,6 +62,27 @@ app.patch('/shoppinglists/:shoppinglistId', (req, res) => {
     .catch((error) => res.status(400).json({ message: 'Bad request' }))
 })
 
+app.post('/shoppinglists/:shoppinglistId/items', (req, res) => {
+    // find the shoppinglist -- look it up in the db
+    Shoppinglist.findById(req.params.shoppinglistId)
+      .then((shoppinglist) => {
+        // if shoppinglist is not found, return 404
+        if (shoppinglist) {
+          // update the record somehow???
+        //   shoppinglist.title = req.body.title || shoppinglist.title
+          shoppinglist.items = req.body.items || shoppinglist.items
+          // save it! (persist the changes to the database)
+          shoppinglist.save()
+          // send a success response + the json results
+          res.status(200).json(shoppinglist)
+        } else {
+          res.status(404).json({ message: 'not found' })
+        }
+        // handle any errors that come up with appropriate responses to the client
+      })
+      .catch((error) => res.status(400).json({ message: 'Bad request' }))
+  })
+
 app.delete('/shoppinglists/:shoppinglistId', (req, res) => {
     // look up the shoppinglist by id
     // delete it, using Mongoose methods
