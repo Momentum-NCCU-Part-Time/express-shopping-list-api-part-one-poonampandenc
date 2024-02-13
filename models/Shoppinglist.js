@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const shoppingListSchema = new mongoose.Schema(
     {
     title: String,
-    },
+    items: [{ name: String }]},
     { timestamps: true }
     )
 
