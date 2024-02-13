@@ -5,7 +5,7 @@ GET http://localhost:3000/shoppinglists
 POST http://localhost:3000/shoppinglists
 Content-Type: application/json
 
-{ "title": "Weaver Street Market" 
+{ "title": "🌱 Weaver Street Market" 
 }
 
 ### get one shoppinglist by id
@@ -21,19 +21,19 @@ GET http://localhost:3000/shoppinglists/whatever
 PATCH http://localhost:3000/shoppinglists/65cad146adabe6383bf1b5b1
 Content-Type: application/json
 
-{ "title": "Sams 🌱🌱🌱🌱"
+{ "title": "Sams 🌱🌱🌱🌱🌱"
 }
 
 ### add items
-POST http://localhost:3000/shoppinglists/65cadde4c4e1a8e3284757cc/items
+POST http://localhost:3000/shoppinglists/65cad287adabe6383bf1b5c9/items
 Content-Type: application/json
 
-{ "title": "Weaver Street Market",
-"items": [{ "name": "bread" }] 
+{ 
+"items": [{ "name": "toothpaste" }] 
 }
 
 ### TODO: delete one shoppinglist 
-DELETE http://localhost:3000/shoppinglists/65cadd28c4e1a8e3284757c1
+DELETE http://localhost:3000/shoppinglists/65cae2eb3de1c290af48520a
 
 ### TODO: get one bookmark by title 
 GET http://localhost:3000/shoppinglist/Costco

@@ -69,7 +69,7 @@ app.post('/shoppinglists/:shoppinglistId/items', (req, res) => {
         // if shoppinglist is not found, return 404
         if (shoppinglist) {
           // update the record somehow???
-        //   shoppinglist.title = req.body.title || shoppinglist.title
+          shoppinglist.title = req.body.title || shoppinglist.title
           shoppinglist.items = req.body.items || shoppinglist.items
           // save it! (persist the changes to the database)
           shoppinglist.save()
