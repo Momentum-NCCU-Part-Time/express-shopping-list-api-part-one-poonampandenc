@@ -36,10 +36,10 @@ app.get('/shoppinglists/:shoppinglistId', (req, res) => {
       if (results) {
         res.status(200).json(results)
       } else {
-        res.status(404).json({ message: 'not found' })
+        res.status(404).json({ message: 'Store list not found' })
       }
     })
-    .catch((error) => res.status(400).json({ message: 'Bad request' }))
+    .catch((error) => res.status(400).json({ message: 'Bad request, re-check input' }))
 })
 
 app.patch('/shoppinglists/:shoppinglistId', (req, res) => {
@@ -62,22 +62,57 @@ app.patch('/shoppinglists/:shoppinglistId', (req, res) => {
     .catch((error) => res.status(400).json({ message: 'Bad request' }))
 })
 
-app.delete('/shoppinglists/:shoppinglistId', (req, res) => {
-    // look up the shoppinglist by id
-    // delete it, using Mongoose methods
-    Shoppinglist.findById(req.params.shoppinglistId)
+app.patch('/shoppinglists/:shoppinglistId/items', (req, res) => {
+  // find the shoppinglist -- look it up in the db
+  Shoppinglist.findById(req.params.shoppinglistId)
     .then((shoppinglist) => {
       // if shoppinglist is not found, return 404
       if (shoppinglist) {
-        // delete the shoppinglist
-        shoppinglist.deleteOne().then(() => res.status(204).send())
-        // send a success response but no content
-       } else {
+        // update the record somehow???
+        shoppinglist.title = req.body.title || shoppinglist.title
+        shoppinglist.items = req.body.items || shoppinglist.items
+        // save it! (persist the changes to the database)
+        shoppinglist.save()
+        // send a success response + the json results
+        res.status(200).json(shoppinglist)
+      } else {
         res.status(404).json({ message: 'not found' })
       }
       // handle any errors that come up with appropriate responses to the client
     })
-  //   .catch((error) => res.status(400).json({ message: 'Bad request' }))
+    .catch((error) => res.status(400).json({ message: 'Bad request' }))
+})
+
+// add items
+app.post('/shoppinglists/:shoppinglistId/items', (req, res) => {
+  ShoppingList.findById(req.params.shoppinglistId)
+  .then((shoppinglist) => {
+    if (shoppinglist) {
+  shoppinglist.items.push(req.body.items)
+  shoppinglist.save()
+  res.status(201).json(shoppinglist)
+}else {
+  res.status(404).json({ "message": "not found" })
+}})
+.catch((error) => res.status(400).json({ "message": "bad request" }))
+})
+
+app.delete('/shoppinglists/:shoppinglistId', (req, res) => {
+  // look up the shoppinglist by id
+  // delete it, using Mongoose methods
+  Shoppinglist.findById(req.params.shoppinglistId)
+  .then((shoppinglist) => {
+    // if shoppinglist is not found, return 404
+    if (shoppinglist) {
+      // delete the shoppinglist
+      shoppinglist.deleteOne().then(() => res.status(204).send())
+      // send a success response but no content
+     } else {
+      res.status(404).json({ message: 'not found' })
+    }
+    // handle any errors that come up with appropriate responses to the client
   })
+//   .catch((error) => res.status(400).json({ message: 'Bad request' }))
+})
 
 app.listen(port, () => console.log(`🐷 Application is running on port ${port}`))
