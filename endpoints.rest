@@ -5,7 +5,10 @@ GET http://localhost:3000/shoppinglists
 POST http://localhost:3000/shoppinglists
 Content-Type: application/json
 
-{ "title": "La Farm Bakery"
+{ "title": "La Farm Bakery",
+"items": { "name": "Eclair",
+"quantity": 6,
+"purchased": "false" }
 }
 
 ### get one shoppinglist by id
@@ -18,10 +21,10 @@ GET http://localhost:3000/shoppinglists/65c6d6f452572e50cbf9f1e6
 GET http://localhost:3000/shoppinglists/whatever
 
 ### TODO: update one shoppinglist
-PATCH http://localhost:3000/shoppinglists/65cadde4c4e1a8e3284757cc
+PATCH http://localhost:3000/shoppinglists/65cae19e3de1c290af485202
 Content-Type: application/json
 
-{ "title": "🌱🌱Weaver Street Market🌱🌱"
+{ "title": "Staples"
 }
 
 ### add items
@@ -29,11 +32,13 @@ POST http://localhost:3000/shoppinglists/65cae19e3de1c290af485202/items
 Content-Type: application/json
 
 { 
-"items": { "name": "pens" }
+"items": { "name": "paper reams",
+"quantity": 1,
+"purchased": "true" }
 }
 
 ### TODO: delete one shoppinglist 
-DELETE http://localhost:3000/shoppinglists/65caf026a6cf83ba4f1405d4
+DELETE http://localhost:3000/shoppinglists/65cc08ec9119de9b9b226de9
 
 ### Not working byTitle: get one shoppinglist by title 
 GET http://localhost:3000/shoppinglists/Costco

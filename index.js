@@ -65,6 +65,7 @@ app.patch('/shoppinglists/:shoppinglistId', (req, res) => {
       if (shoppinglist) {
         // update the record somehow???
         shoppinglist.title = req.body.title || shoppinglist.title
+        // shoppinglist.items = req.body.items || shoppinglist.items
         // save it! (persist the changes to the database)
         shoppinglist.save()
         // send a success response + the json results
