@@ -5,7 +5,7 @@ GET http://localhost:3000/shoppinglists
 POST http://localhost:3000/shoppinglists
 Content-Type: application/json
 
-{ "title": "Pizzeria Toro" 
+{ "title": "La Farm Bakery"
 }
 
 ### get one shoppinglist by id
