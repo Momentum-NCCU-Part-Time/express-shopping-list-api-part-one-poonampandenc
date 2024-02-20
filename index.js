@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 // connect to the database
 mongoose.connect(process.env.DATABASE_URL)
@@ -14,6 +15,7 @@ const port = process.env.PORT
 const app = express()
 app.use(morgan())
 app.use(express.json())
+app.use(cors())
 
 const Shoppinglist = require('./models/Shoppinglist')
 
@@ -84,9 +86,10 @@ app.post('/shoppinglists/:shoppinglistId/items', (req, res) => {
       .then((shoppinglist) => {
         // if shoppinglist is not found, return 404
         if (shoppinglist) {
+          console.log(shoppinglist)
           // update the record somehow???
         //   shoppinglist.title = req.body.title || shoppinglist.title
-          shoppinglist.items.push(req.body.items)
+          shoppinglist.items.push(req.body)
           // save it! (persist the changes to the database)
           shoppinglist.save()
           // send a success response + the json results
@@ -116,5 +119,28 @@ app.delete('/shoppinglists/:shoppinglistId', (req, res) => {
     })
   //   .catch((error) => res.status(400).json({ message: 'Bad request' }))
   })
+
+  app.patch('/shoppinglists/:shoppinglistId/items', (req, res) => {
+    // find the shoppinglist -- look it up in the db
+    Shoppinglist.findById(req.params.shoppinglistId)
+      .then((shoppinglist) => {
+        // if shoppinglist is not found, return 404
+        if (shoppinglist) {
+          console.log(shoppinglist)
+          // update the record somehow???
+        //   shoppinglist.title = req.body.title || shoppinglist.title
+          shoppinglist.items.push(req.body.items)
+          // save it! (persist the changes to the database)
+          shoppinglist.save()
+          // send a success response + the json results
+          res.status(201).json(shoppinglist)
+        } else {
+          res.status(404).json({ message: 'not found' })
+        }
+        // handle any errors that come up with appropriate responses to the client
+      })
+      .catch((error) => res.status(400).json({ message: 'Bad request' }))
+  })
+
 
 app.listen(port, () => console.log(`🐷 Application is running on port ${port}`))

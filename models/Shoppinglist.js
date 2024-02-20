@@ -4,8 +4,7 @@ const shoppingListSchema = new mongoose.Schema(
     {
     title: String,
     items: [{ name: String,
-    quantity: Number,
-purchased: Boolean }]},
+    purchased: Boolean }]},
     { timestamps: true }
     )
 

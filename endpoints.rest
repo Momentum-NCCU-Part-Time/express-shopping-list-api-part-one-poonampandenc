@@ -5,14 +5,10 @@ GET http://localhost:3000/shoppinglists
 POST http://localhost:3000/shoppinglists
 Content-Type: application/json
 
-{ "title": "La Farm Bakery",
-"items": { "name": "Eclair",
-"quantity": 6,
-"purchased": "false" }
-}
+{ "title": "Neomonde" }
 
 ### get one shoppinglist by id
-GET http://localhost:3000/shoppinglists/65cad146adabe6383bf1b5b1
+GET http://localhost:3000/shoppinglists/65d0fa81824c475921e9d192
 
 ### test get one shoppinglist with an object id not in the db (right length), just doesn't exist)
 GET http://localhost:3000/shoppinglists/65c6d6f452572e50cbf9f1e6
@@ -21,24 +17,35 @@ GET http://localhost:3000/shoppinglists/65c6d6f452572e50cbf9f1e6
 GET http://localhost:3000/shoppinglists/whatever
 
 ### TODO: update one shoppinglist
-PATCH http://localhost:3000/shoppinglists/65cae19e3de1c290af485202
+PATCH http://localhost:3000/shoppinglists/65d0fa81824c475921e9d192
 Content-Type: application/json
 
-{ "title": "Staples"
+{ "title": "Neomonde Med Deli"
 }
 
 ### add items
-POST http://localhost:3000/shoppinglists/65cae19e3de1c290af485202/items
+POST http://localhost:3000/shoppinglists/65d0fa81824c475921e9d192/items
 Content-Type: application/json
 
 { 
-"items": { "name": "paper reams",
-"quantity": 1,
-"purchased": "true" }
+"name": "Baklava",
+"purchased": false
 }
 
 ### TODO: delete one shoppinglist 
 DELETE http://localhost:3000/shoppinglists/65cc08ec9119de9b9b226de9
+
+
+### TODO: update items to be tested
+PATCH http://localhost:3000/shoppinglists/65d0fa81824c475921e9d192/items
+Content-Type: application/json
+
+{ 
+"name": "Tabouleh",
+"purchased": true 
+}
+
+
 
 ### Not working byTitle: get one shoppinglist by title 
 GET http://localhost:3000/shoppinglists/Costco
